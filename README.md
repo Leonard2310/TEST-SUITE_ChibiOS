@@ -1,11 +1,5 @@
 # TEST-SUITE_ChibiOS
-Progetto NISC2021 TEST-SUITE NUCLEO64 (2021)
-
-### NISC2021:
-Il NeaPolis Innovation Summer Campus 2021 è stato svolto interamente online, attraverso la piattaforma di videoconferenze Microsoft Teams.
-Il campus si è svolto dal 26 agosto 2021 al 5 settembre 2021. Le giornate prevedevano dei seminari intensivi sui microcontrollori a 32 bit e sui Sistemi Operativi Real-Time.
-Dopo una prima fase preliminare di seminari e lavoro individuale, i tutor ci hanno raggruppati in team per sviliuppare un progetto. A tale scopo, ogni partecipante ha ricevuto una scheda di sviluppo e delle componenti elettroniche.
-I team sono stati scelti in maniera casuale dai tutor, permettendoci di lavorare con studenti italiani e stranieri con un background completamente diverso e con maggior esperienza.
+Progetto in C utilizzando ChibiStudio (Eclipse + ChibiOS) "TEST-SUITE" su STM32 Nucleo-64 (NUCLEO-F401RE) (2021)
 
 ### AMBIENTE DI SVILUPPO:
 L’ambiente di sviluppo che abbiamo utilizzato per programmare e controllare la nostra scheda è “ChibiStudio”: un insieme di programmi basati su Eclipse per il supporto di ChibiOS, un sistema operativo real-time molto compatto ed efficiente per progettare applicazioni embedded. Il principale linguaggio di programmazione utilizzato è stato il C.
