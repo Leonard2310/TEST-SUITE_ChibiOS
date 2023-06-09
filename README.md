@@ -1,192 +1,63 @@
+
+
 # TEST-SUITE_ChibiOS
+This project, called "TEST-SUITE," is a C project developed using ChibiStudio (Eclipse + ChibiOS) and implemented on an STM32 Nucleo-64 (NUCLEO-F401RE) board. It aims to test various functionalities and components of the board, such as LEDs, joystick, OLED display, buzzer, and more. The project leverages the ChibiOS real-time operating system and utilizes C programming language.
 
-C project using ChibiStudio (Eclipse + ChibiOS) "TEST-SUITE" on STM32 Nucleo-64 (NUCLEO-F401RE) (2021)
+## Development Environment
+The development environment used for programming and controlling the board is ChibiStudio, a collection of programs based on Eclipse specifically designed to support ChibiOS. ChibiOS is a highly compact and efficient real-time operating system for embedded applications. The tools used in ChibiStudio include Eclipse IDE, GNU GCC ARM Compiler & Tools, Open OCD Tool & scripts, and ChibiOS libraries.
 
-### DEVELOPMENT ENVIRONMENT:
-The development environment we used to program and control our board is "ChibiStudio": a set of programs based on Eclipse for supporting ChibiOS, a highly compact and efficient real-time operating system for designing embedded applications. The main programming language used was C.
-ChibiStudio consists of:
-* Eclipse IDE
-* GNU GCC ARM Compiler & Tools
-* Open OCD Tool & scripts: open-source software for debugging embedded devices
-* ChibiOS: provides a set of libraries to fully leverage the potential of the Nucleo board and simplify and speed up the writing of control code.
+ChibiStudio provides two types of perspectives: C/C++ development for project creation, management, and code writing, and Debug for testing and fixing functional errors.
 
-ChibiStudio also presents two types of perspectives:
-* C/C++ development: for project creation and management, code writing and compilation, and syntax error correction.
-* Debug: for testing functionalities, identifying unexpected behaviors, and fixing functional errors.
+The project's structure consists of various folders, including the Debug folder for execution configuration, and configuration headers such as `chconf.h`, `halconf.h`, and `mcuconf.h`. The Makefile contains a script used by the compiler for code building, and the `main.c` file serves as the entry point of the application.
 
-The project's anatomy is divided into:
-Set of folders:
-* Debug folder: contains the execution configuration.
-* Configuration headers:
+## Development Board
+The development board used in this project is an STM32 Nucleo-64 (NUCLEO-F401RE). It is a 32-bit microcontroller board based on the ARM Cortex-M architecture. The board provides GPIO (General Purpose Input Output) pins that allow communication with various peripherals.
 
-   * chconf.h: main kernel settings;
-   * halconf.h: ChibiOS and HAL driver configurations;
-   * mcuconf.h: MCU-specific configurations.
-* Makefile: contains a script that provides a set of directives used by the compiler to perform the initial code build.
-* Main: the source code containing the application's entry point.
+![STM32 Nucleo-64](https://user-images.githubusercontent.com/71086591/179379789-9ab43abd-b920-42ec-8091-00f09c9c4434.jpg)
 
-### DEVELOPMENT BOARD:
-The board provided to us is an STM32 Nucleo-64 (NUCLEO-F401RE). It is a board belonging to the 32-bit microcontroller family based on the ARM Cortex-M architecture.
+## Components and Functionalities
 
-![Image](https://user-images.githubusercontent.com/71086591/179379789-9ab43abd-b920-42ec-8091-00f09c9c4434.jpg)
-
-### GENERAL PURPOSE INPUT OUTPUT:
-GPIO (General Purpose Input Output) is a hardware computer interface that allows devices like microprocessors to interact with other peripherals. The I/O pins of the STM Nucleo are organized in groups of 16 elements (from 0 to 15), and each of these pins can be independently configured as input or output. Each group is called a "Port" and is identified by a letter (GPIOA, GPIOB, GPIOC, etc.). The pins are identified by the combination of the letter P, the port identifier (A, B, C, ...), and the pin identifier (0, 1, 2, ..., 15).
-
-Each pin can be programmed in four different modes:
-* Input Mode: allows sampling the logic level of a pin.
-
-   * The output buffer is disabled.
-   * The TTL Schmitt trigger is enabled.
-   * The pins are continuously sampled and stored in a memory that can be accessed and read to obtain the pin's state.
-* Output Mode: allows setting the logic level of a pin.
-
-   * The output buffer is enabled.
-   * The TTL Schmitt trigger is enabled.
-   * The pin's state can be changed.
-   * The pin's electrical state can be controlled.
-* Analog Mode: allows using ADC or DAC.
-* Alternate Mode: allows assigning a pin to an STM32 peripheral.
-
-   * STM32 has a large number of peripherals connected to GPIO via multiplexers.
-   * Each peripheral is mapped to more than one pin to ensure greater flexibility.
-
-## STM32 Microcontroller
-The STM32 microcontroller operates at a voltage of 3.3V. The GPIO high state is 3.3V, while the low state is 0V. The GPIO pins can tolerate voltages up to 5V, and the maximum current that a single pin can generate/absorb is approximately 25mA. The total current absorbed/generated by all pins should not exceed 120mA.
+### GPIO (General Purpose Input Output)
+The board's GPIO pins are organized in groups of 16 elements and can be configured as input or output independently. Each group is called a "Port" and is identified by a letter (GPIOA, GPIOB, GPIOC, etc.). Each pin is identified by the combination of the letter P, the port identifier (A, B, C, ...), and the pin identifier (0, 1, 2, ..., 15). GPIO pins can be programmed in various modes such as input, output, analog, or alternate mode.
 
 ### RGB LED
-
-One of the components used during the campus was the RGB LED, which consists of three different colored LEDs. The LED can be connected to the input pins in series with resistors, and by providing a high or low voltage signal, the LED can be turned on or off, respectively.
+The project utilizes an RGB LED, which consists of three different colored LEDs (red, green, and blue) combined into a single component. By controlling the input pins of the LED, it is possible to turn on or off each color independently, creating various color combinations.
 
 ![RGB LED](https://user-images.githubusercontent.com/71086591/179380009-5ee7dafe-1c7c-4f2e-9451-a0145f3cacb1.png)
 
-### CHIBIOS PAL DRIVER
+### ChibiOS PAL Driver
+The ChibiOS PAL Driver (Port Abstraction Layer) is a driver provided by ChibiOS that simplifies the interaction with GPIO pins. It offers various functions for configuring and controlling individual pins, groups of pins, entire ports, and lines. The PAL driver provides an abstraction of the hardware structure, making it easier to develop code. Proper initialization of each pad is necessary before usage, and the configuration is performed using functions such as `palSetPadMode()`, `palSetGroupMode()`, and `palSetPortMode()`.
 
-The PAL Driver (Port Abstraction Layer) is a ChibiOS driver that uses GPIO. As the name suggests, the PAL driver provides an abstraction of the hardware structure of the board to facilitate code development. It includes various identification methods and their respective set of functions:
+![ChibiOS PAL Driver](
 
-- Pad-related functions that operate on a single I/O (port, pad)
-- Group-related functions that operate on a group of I/Os (port, mask, offset)
-- Port-related functions that operate on an entire port (port)
-- Line-related functions, which are an alternative to pads (X)
+https://user-images.githubusercontent.com/71086591/179380095-cfbc0096-bf27-4557-a4a7-8c4e9edf250e.png)
 
-Configurations for changing the pins include:
+### USART (Universal Asynchronous Receiver-Transmitter)
+The project utilizes the USART interface for serial communication with external devices. The ChibiOS Serial Driver is implemented to facilitate communication through the USART interface. It provides functions for initializing the USART peripheral, sending and receiving data, and configuring parameters such as baud rate, data length, parity, and stop bits.
 
-- `palSetPadMode(port, pad, mode)`
-- `palSetLineMode(line, mode)`
-- `palSetGroupMode(port, mask, offset, mode)`
-- `palSetPortMode(port, mode)`
+### Shell Interface
+The project includes a Shell interface that allows asynchronous command-based interaction through the USART interface. Users can send commands to the board via a serial terminal, and the board executes the corresponding actions. The Shell interface provides a convenient way to test and control different functionalities of the board.
 
-![CHIBIOS PAL DRIVER](https://user-images.githubusercontent.com/71086591/179380012-096c766b-7156-4e55-9ec4-0cf3720565b3.png)
+### Joystick
+The STM32 Nucleo-64 board includes a built-in joystick, which provides analog input for capturing the position relative to the X and Y axes. The project utilizes the ADC (Analog-to-Digital Converter) of the STM32 microcontroller to read the analog input and determine the joystick's position. The joystick can be moved in four directions: up, down, left, and right.
 
-Each pad must be properly configured before being used. The configuration for each pad should follow the specifications and semantics of the board. The initial initialization is performed by the `halInit()` function.
+### OLED Display
+The project incorporates an OLED (Organic Light-Emitting Diode) display for visual output. Communication with the display is performed using the I2C (Inter-Integrated Circuit) protocol. The project utilizes the I2C interface of the STM32 microcontroller to send commands and data to the OLED display, enabling the display of text, graphics, and other visual elements.
 
-### STM32 USART
+### PWM (Pulse Width Modulation)
+PWM is a technique used for controlling the power and brightness of external peripherals. The project utilizes PWM to control the buzzer's sound and LED's brightness. The STM32 microcontroller provides timers (TIM) that can generate PWM signals. By configuring the timer's period and duty cycle, the project achieves desired sound and brightness levels.
 
-The USART (Universal Asynchronous Receiver-Transmitter) is a general-purpose or dedicated hardware device that converts streams of data bits from parallel to asynchronous serial format or vice versa.
+### Encoder
+An encoder is an electronic device that converts angular positions into digital electrical signals. The project utilizes an encoder as a dimmer to control the intensity of the LED. By rotating the encoder, the user can increase or decrease the LED's brightness.
 
-Parallel communication: Each bit is transmitted through a dedicated line. It requires a line for each bit plus one line for synchronization.
+## Test Cases
+The project includes a set of test cases to verify and validate the functionalities and components of the board. Each test case covers specific features and can be executed individually. The test cases are identified by the following format: TS-REQXX-YY, where XX represents the requirement number, and YY represents the test case number.
 
-![Parallel Communication](https://user-images.githubusercontent.com/71086591/179380170-a0e331e3-4b2e-404b-bde2-9094241c2b42.png)
+The test cases cover functionalities such as controlling the RGB LED's color and behavior, obtaining joystick position coordinates, displaying states on the OLED display, playing acoustic signals using the buzzer, and implementing a color wheel demo.
 
-Serial communication: The bits are transmitted through a single line, called the bus. It requires more complex synchronization mechanisms.
+## Conclusion
+The TEST-SUITE_ChibiOS project provides a comprehensive testing platform for exploring and validating various functionalities and components of embedded systems. By leveraging the ChibiOS real-time operating system and the STM32 microcontroller's capabilities, the project demonstrates how to control LEDs, read analog inputs, communicate via serial interface, and interact with external peripherals like OLED display and buzzer. The project's test cases serve as valuable examples for developers working on embedded systems and provide a solid foundation for building more complex applications.
 
-![Serial Communication](https://user-images.githubusercontent.com/71086591/179380182-2f79cee4-a6e4-4961-8648-53e7f5e42597.jpg)
+![TEST-SUITE_ChibiOS](https://user-images.githubusercontent.com/71086591/179380337-2a7aa405-df6a-4a5d-86e5-0e16e6bc27e5.png)
 
-Serial synchronization can be synchronous or asynchronous, and the communication can be simplex, half-duplex, or full-duplex. The USART is a variant of the UART that has an additional clock. It is designed to implement various serial protocols.
-
-### CHIBIOS SERIAL DRIVER
-A Serial is a ChibiOS/HAL driver that uses the USART. The serial driver stores input and output streams in a buffer using I/O queues. Each Serial driver API (Application Programming Interface) generally starts with the prefix "sd".
-
-Before using them, each Serial driver must be initialized and configured. Initialization is automatically performed by calling the `hallinit()` function in the main. Configuration, on the other hand, is done by the user using the `sdStart()` function. This function takes two parameters: a pointer to the driver to be started and a pointer to the configuration structure.
-
-### SHELL
-A shell is a text-based interface that relies on an I/O stream, in this case, provided by the serial driver. It is a powerful tool that allows creating asynchronous events, i.e., events that occur independently of the main program flow, by entering keyboard commands.
-
-To use a shell in ChibiStudio, you need to add the path of the "shell.h" library inside the Makefile.
-
-To use it correctly, follow these steps:
-* Allocate memory: Define the heap memory where the shell will be allocated.
-* Define a command list: This is an array that contains the names of the commands the shell expects to receive from the keyboard and the names of the corresponding functions.
-* Configure a structure containing the serial driver and the command array.
-* Create a new thread with the following parameters:
-  - Pointer to the heap.
-  - Working Area size.
-  - Thread identifier.
-  - Priority.
-  - Thread function.
-  - Arguments (cast to void).
-* Define custom commands with the following parameters:
-  - Pointer to the serial stream.
-  - Maximum number of strings the shell can receive.
-  - Array containing the various strings entered from the keyboard.
-
-### STM32 ADC
-An Analog-to-Digital Converter (ADC) converts a continuous-time signal into a sequence of discrete values. A converter is necessary because discrete signals can be directly interpreted by the microcontroller.
-
-![Title](https://user-images.githubusercontent.com/71086591/179380210-f1d7265c-3a29-4d5f-ab43-92f2df9eaa3a.jpg)
-
-Specifications of an ADC:
-* FSR (Full Scale Voltage Range): maximum range of analog values that can be given as input: 𝑉𝐹𝑆𝘙 = 𝑉i𝑛𝑝𝑢𝑡𝑀𝑎𝗑 − 𝑉i𝑛𝑝𝑢𝑡𝑀i𝑛
-* Resolution: number of discrete values the ADC can produce within the allowed range of analog input values. The resolution in terms of voltage: Δ𝑉 =	𝑉𝐹𝑆𝘙/𝑟i𝑠𝑜𝑙𝑢zi𝑜𝑛𝑒
-* Sampling rate: sampling frequency measured in S/s (samples per second) and its multiples (kS/s, MS/s, or GS/s).
-
-In particular, the board is equipped with a 12-bit "Successive Approximation ADC," composed of:
-* Sample & Hold: sampler and interface between the analog signal and the ADC.
-* Digital-to-Analog Converter.
-* Comparator: receives two signals as input and compares them.
-* SAR (Successive Approximation Register).
-
-The STM32 provides two conversion modes:
-* Single conversion: the ADC performs a single conversion and then stops.
-* Continuous conversion: the ADC starts a new conversion when the last one is finished.
-Additionally, each STM32 provides many input sources to be used as channels for conversion. In particular, each channel is identified by a progressive number starting from 0. The first 16 channels are generally assigned to external sources.
-
-#### JOYSTICK
-The joystick is another device used during the campus and provided in the starter kit. It is a simple example of an analog peripheral that uses two potentiometers. They vary the resistance in the circuit and indicate the position of the joystick relative to the X and Y axes.
-
-![Title](https://user-images.githubusercontent.com/71086591/179380109-0a1d56e6-37a3-437c-9fa6-48fc44a613a6.png)
-
-### I2C COMMUNICATION
-I2C (Inter-Integrated Circuit) is a half-duplex, synchronous serial communication bus. It uses a master-slave architecture with a single master. The clock signal is generated by one of the endpoints and provided to others through a specific line (SCL). Communication takes place through a single line (SDA), often referred to as a two-wire serial. A transaction consists of one or more messages, where each message is composed of a one-byte word plus an additional ACK/NACK bit. The entire I2C driver subsystem can be enabled by setting the appropriate field in "halconf.h" (HAL_USE_I2C = TRUE). The driver can be assigned to a specific peripheral by modifying "mcuconf.h". Each driver operation can only be performed if the driver has been properly configured.
-
-#### OLED DISPLAY
-An example of a device that communicates with I2C is an OLED display. In particular, we were provided with an SSD1306 OLED display during the campus. After configuring the I2C, we implement the OLED display configuration structure and define its driver. To use it, we utilize threads and a set of functions provided by the ssd1306 library, which allow us to set the font size and colors, draw geometric shapes, etc.
-
-### PWM
-PWM (Pulse Width Modulation) is a digital modulation technique where the waveform changes between two states with negligible rise time and a constant period. It is commonly used for hardware management of external peripherals using timers (TIM) that interface with sensors. The concept of Duty Cycle is important, which is the ratio of the duration of the positive pulse to the entire considered period.
-
-![Title](https://user-images.githubusercontent.com/71086591/179380154-c53b758d-2b2a-44ec-a489-8554f97b342b.jpg)
-
-#### BUZZER
-A device that uses PWM is the buzzer, an audio signaling device that can be mechanical or electromechanical. Typical uses of a buzzer include alarms, timers, etc. PWM manages the buzzer in hardware. Through internal timers, it takes in a certain user-defined period and produces pulses to make the buzzer sound or silence it. PWM is used because it can change the period at runtime, making it useful for cases where the period changes during program execution (also useful for LEDs in DYNAMIC mode). For the configuration of the buzzer:
-
-### ENCODER
-The encoder is an electronic device that converts the angular position of its rotating axis into a digital electrical signal connected through appropriate electronic circuits and mechanical connections. It can measure angular displacements, linear and circular movements, as well as rotation speeds and accelerations.
-
-The encoder can be used for various purposes. In our project, it served as a dimmer, an electronic controller used to control the power absorbed by a load. It is capable of controlling the brightness of the LED.
-
-### PROJECT FUNCTIONAL REQUIREMENTS:
-* TS-REQ01-1: LED [RED|GREEN|BLUE] [STATIC|DYNAMIC]
-
-&emsp; &emsp; If STATIC, set color [ON|OFF]; otherwise, if DYNAMIC, set color and period [100÷1000] (ms).
-* TS-REQ01-2: JOY [XY|POLAR]
-
-&emsp; &emsp; Once activated, the following will be displayed:
-
-&emsp; &emsp; &emsp; • If in XY mode: Cartesian coordinates relative to the joystick's position.
-
-&emsp; &emsp; &emsp; • If in POLAR mode: Polar coordinates relative to the joystick's position.
-* TS-REQ01-3: OLED [LED|JOY]
-
-&emsp; &emsp; Once activated, the state of the LED or JOYPAD will be printed on the OLED display.
-* TS-REQ01-4: BUZZ [ON|OFF] [PERIOD]
-
-&emsp; &emsp; An acoustic signal is played with a period expressed in integer multiples of a second.
-* TS-REQ01-5: DIMMER [ON|OFF] [RED|GREEN|BLUE]
-
-&emsp; &emsp; Once activated, the indicated LED should have its intensity controlled by the encoder.
-* TS-REQ02-1: DEMO
-
-&emsp; &emsp; Implements a color wheel with an OLED display and the BUZZER.
-
-![IMG_1603](https://user-images.githubusercontent.com/71086591/179379953-c6e6047a-6d97-4c85-95be-1590b0e73fb4.jpeg)
+Feel free to explore the project and experiment with different functionalities!
