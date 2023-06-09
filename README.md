@@ -12,6 +12,7 @@ The project's structure consists of various folders, including the Debug folder 
 
 ## Development Board
 The development board used in this project is an STM32 Nucleo-64 (NUCLEO-F401RE). It is a 32-bit microcontroller board based on the ARM Cortex-M architecture. The board provides GPIO (General Purpose Input Output) pins that allow communication with various peripherals.
+
 ![STM32 Nucleo-64](https://user-images.githubusercontent.com/71086591/179379789-9ab43abd-b920-42ec-8091-00f09c9c4434.jpg)
 
 ### Components and Functionalities
@@ -21,19 +22,23 @@ The board's GPIO pins are organized in groups of 16 elements and can be configur
 
 #### RGB LED
 The project utilizes an RGB LED, which consists of three different colored LEDs (red, green, and blue) combined into a single component. By controlling the input pins of the LED, it is possible to turn on or off each color independently, creating various color combinations.
+
 ![RGB LED](https://user-images.githubusercontent.com/71086591/179380009-5ee7dafe-1c7c-4f2e-9451-a0145f3cacb1.png)
 
 #### ChibiOS PAL Driver
 The ChibiOS PAL Driver (Port Abstraction Layer) is a driver provided by ChibiOS that simplifies the interaction with GPIO pins. It offers various functions for configuring and controlling individual pins, groups of pins, entire ports, and lines. The PAL driver provides an abstraction of the hardware structure, making it easier to develop code. Proper initialization of each pad is necessary before usage, and the configuration is performed using functions such as `palSetPadMode()`, `palSetGroupMode()`, and `palSetPortMode()`.
+
 ![CHIBIOS PAL DRIVER](https://user-images.githubusercontent.com/71086591/179380012-096c766b-7156-4e55-9ec4-0cf3720565b3.png)
 
 #### USART (Universal Asynchronous Receiver-Transmitter)
 The project utilizes the USART interface for serial communication with external devices. The ChibiOS Serial Driver is implemented to facilitate communication through the USART interface. It provides functions for initializing the USART peripheral, sending and receiving data, and configuring parameters such as baud rate, data length, parity, and stop bits.
 
 Parallel communication: Each bit is transmitted through a dedicated line. It requires a line for each bit plus one line for synchronization.
+
 ![Parallel Communication](https://user-images.githubusercontent.com/71086591/179380170-a0e331e3-4b2e-404b-bde2-9094241c2b42.png)
 
 Serial communication: The bits are transmitted through a single line, called the bus. It requires more complex synchronization mechanisms.
+
 ![Serial Communication](https://user-images.githubusercontent.com/71086591/179380182-2f79cee4-a6e4-4961-8648-53e7f5e42597.jpg)
 
 #### Shell Interface
@@ -41,10 +46,12 @@ The project includes a Shell interface that allows asynchronous command-based in
 
 #### STM32 ADC
 The STM32 ADC is an essential component of the microcontroller that converts analog signals into digital values. It has key specifications such as the full-scale voltage range (FSR), resolution, and sampling rate. The ADC architecture consists of a sample & hold circuit, a digital-to-analog converter, a comparator, and a successive approximation register (SAR). The ADC supports single and continuous conversion modes. The STM32 microcontroller provides multiple input sources that can be used as channels for conversion. This summarizes the STM32 ADC and its main features.
+
 ![Title](https://user-images.githubusercontent.com/71086591/179380210-f1d7265c-3a29-4d5f-ab43-92f2df9eaa3a.jpg)
 
 #### Joystick
 The joystick is another device used during the campus and provided in the starter kit. It is a simple example of an analog peripheral that uses two potentiometers. They vary the resistance in the circuit and indicate the position of the joystick relative to the X and Y axes.
+
 ![Title](https://user-images.githubusercontent.com/71086591/179380109-0a1d56e6-37a3-437c-9fa6-48fc44a613a6.png)
 
 #### OLED Display
@@ -52,6 +59,7 @@ The project incorporates an OLED (Organic Light-Emitting Diode) display for visu
 
 #### PWM (Pulse Width Modulation)
 PWM is a technique used for controlling the power and brightness of external peripherals. The project utilizes PWM to control the buzzer's sound and LED's brightness. The STM32 microcontroller provides timers (TIM) that can generate PWM signals. By configuring the timer's period and duty cycle, the project achieves desired sound and brightness levels.
+
 ![Title](https://user-images.githubusercontent.com/71086591/179380154-c53b758d-2b2a-44ec-a489-8554f97b342b.jpg)
 
 #### Encoder
@@ -67,6 +75,7 @@ The test cases cover functionalities such as controlling the RGB LED's color and
 
 ## Results
 The TEST-SUITE_ChibiOS project provides a comprehensive testing platform for exploring and validating various functionalities and components of embedded systems. By leveraging the ChibiOS real-time operating system and the STM32 microcontroller's capabilities, the project demonstrates how to control LEDs, read analog inputs, communicate via serial interface, and interact with external peripherals like OLED display and buzzer. The project's test cases serve as valuable examples for developers working on embedded systems and provide a solid foundation for building more complex applications.
+
 ![IMG_1603](https://user-images.githubusercontent.com/71086591/179379953-c6e6047a-6d97-4c85-95be-1590b0e73fb4.jpeg)
 
 ## Contributions
