@@ -1,5 +1,3 @@
-
-
 # TEST-SUITE_ChibiOS
 This project, called "TEST-SUITE," is a C project developed using ChibiStudio (Eclipse + ChibiOS) and implemented on an STM32 Nucleo-64 (NUCLEO-F401RE) board. It aims to test various functionalities and components of the board, such as LEDs, joystick, OLED display, buzzer, and more. The project leverages the ChibiOS real-time operating system and utilizes C programming language.
 
@@ -14,7 +12,6 @@ The project's structure consists of various folders, including the Debug folder 
 
 ## Development Board
 The development board used in this project is an STM32 Nucleo-64 (NUCLEO-F401RE). It is a 32-bit microcontroller board based on the ARM Cortex-M architecture. The board provides GPIO (General Purpose Input Output) pins that allow communication with various peripherals.
-
 ![STM32 Nucleo-64](https://user-images.githubusercontent.com/71086591/179379789-9ab43abd-b920-42ec-8091-00f09c9c4434.jpg)
 
 ### Components and Functionalities
@@ -24,7 +21,6 @@ The board's GPIO pins are organized in groups of 16 elements and can be configur
 
 #### RGB LED
 The project utilizes an RGB LED, which consists of three different colored LEDs (red, green, and blue) combined into a single component. By controlling the input pins of the LED, it is possible to turn on or off each color independently, creating various color combinations.
-
 ![RGB LED](https://user-images.githubusercontent.com/71086591/179380009-5ee7dafe-1c7c-4f2e-9451-a0145f3cacb1.png)
 
 #### ChibiOS PAL Driver
@@ -35,11 +31,9 @@ The ChibiOS PAL Driver (Port Abstraction Layer) is a driver provided by ChibiOS 
 The project utilizes the USART interface for serial communication with external devices. The ChibiOS Serial Driver is implemented to facilitate communication through the USART interface. It provides functions for initializing the USART peripheral, sending and receiving data, and configuring parameters such as baud rate, data length, parity, and stop bits.
 
 Parallel communication: Each bit is transmitted through a dedicated line. It requires a line for each bit plus one line for synchronization.
-
 ![Parallel Communication](https://user-images.githubusercontent.com/71086591/179380170-a0e331e3-4b2e-404b-bde2-9094241c2b42.png)
 
 Serial communication: The bits are transmitted through a single line, called the bus. It requires more complex synchronization mechanisms.
-
 ![Serial Communication](https://user-images.githubusercontent.com/71086591/179380182-2f79cee4-a6e4-4961-8648-53e7f5e42597.jpg)
 
 #### Shell Interface
@@ -69,12 +63,10 @@ The project includes a set of test cases to verify and validate the functionalit
 The test cases cover functionalities such as controlling the RGB LED's color and behavior, obtaining joystick position coordinates, displaying states on the OLED display, playing acoustic signals using the buzzer, and implementing a color wheel demo.
 
 ## Requirements
-- Eclipse IDE (version 2022-2023 or higher)
-- ChibiOS
+- ChibiStudio 20.4
 
 ## Results
 The TEST-SUITE_ChibiOS project provides a comprehensive testing platform for exploring and validating various functionalities and components of embedded systems. By leveraging the ChibiOS real-time operating system and the STM32 microcontroller's capabilities, the project demonstrates how to control LEDs, read analog inputs, communicate via serial interface, and interact with external peripherals like OLED display and buzzer. The project's test cases serve as valuable examples for developers working on embedded systems and provide a solid foundation for building more complex applications.
-
 ![IMG_1603](https://user-images.githubusercontent.com/71086591/179379953-c6e6047a-6d97-4c85-95be-1590b0e73fb4.jpeg)
 
 ## Contributions
